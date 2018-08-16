@@ -5,25 +5,21 @@ import com.bss.mvpdaggerretrofitrx.service.model.LoginRequest;
 import com.bss.mvpdaggerretrofitrx.service.model.LoginResponse;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import javax.inject.Inject;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class LoginPresenter extends MvpBasePresenter<LoginView> {
+public class LoginPresenter extends MvpBasePresenter<LoginView> {            //2     inJect  2 chỗ để nó nhận được đối tượng mà cái kia nó gán zô ở LoginActivity
 
-    private RestAuthenticationService restAuthenticationService;
+    @Inject                                                     //chỗ này cần  đối tượng restauthen.. nên ịnect
+    protected RestAuthenticationService restAuthenticationService;
 
-    public LoginPresenter() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://kiddi.api.web.beesightsoft.com/api/")
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        restAuthenticationService = retrofit.create(RestAuthenticationService.class);
+    @Inject
+    public LoginPresenter() {             //inject chỗ này luôn để nó nhận dc đối tượng từ loginActivity
+
     }
 
     public void login(String email, String password) {
