@@ -12,7 +12,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity(R.layout.activity_main)
-public class LoginActivity extends MvpActivity<LoginView, LoginPresenter>
+public class LoginActivity extends MvpActivity<LoginView, LoginPresenter>            //3
 implements LoginView {
 
     @NonNull

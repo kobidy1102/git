@@ -13,9 +13,9 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class LoginPresenter extends MvpBasePresenter<LoginView> {
+public class LoginPresenter extends MvpBasePresenter<LoginView> {               //2
 
-    private RestAuthenticationService restAuthenticationService;
+    private RestAuthenticationService restAuthenticationService;    //có cái observable và post
 
     public LoginPresenter() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -23,15 +23,15 @@ public class LoginPresenter extends MvpBasePresenter<LoginView> {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        restAuthenticationService = retrofit.create(RestAuthenticationService.class);
-    }
+        restAuthenticationService = retrofit.create(RestAuthenticationService.class);       //khởi tại retrofit để add vào abservable      //retrofit để đọc dữ liệu từ netwwork  kiểu Json thì có Gson để parse
+    }                                                                               // cũng như httpConnecttion add vào async task  //  observable để chạy cái retrofit trên 1 luồng riêng.
 
-    public void login(String email, String password) {
+    public void login(String email, String password) {                   // xử lý logic đăng nhập
         getView().showLoading();
-        restAuthenticationService.login(new LoginRequest(email, password))
+        restAuthenticationService.login(new LoginRequest(email, password))       //kết hợp giữa retrofit và observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate(new Action0() {
+                .doOnTerminate(new Action0() {                       //chạy xong cái observable là zô đây
                     @Override
                     public void call() {
                         getView().hideLoading();

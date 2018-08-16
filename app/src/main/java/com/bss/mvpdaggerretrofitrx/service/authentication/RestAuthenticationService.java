@@ -10,5 +10,6 @@ import rx.Observable;
 public interface RestAuthenticationService {
 
     @POST("auth/signIn")
-    Observable<LoginResponse> login(@Body LoginRequest loginRequest);
+    Observable<LoginResponse> login(@Body LoginRequest loginRequest);               //7  tạo 1 cái observable (luồng chạy background ) parse Json trả về (LoginResponse)  từ cái
+                                                                                       //  (truyền zô cái Json gửi đi (Login Resquest)
 }

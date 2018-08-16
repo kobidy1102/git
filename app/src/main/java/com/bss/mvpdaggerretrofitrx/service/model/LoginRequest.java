@@ -2,7 +2,7 @@ package com.bss.mvpdaggerretrofitrx.service.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginRequest {
+public class LoginRequest {                              //4    (gửi đi) theo cấu trúc của  Json
 
     @SerializedName("email")
     private String myEmail;
